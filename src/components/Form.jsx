@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import DateTimePicker from 'react-native-ui-datepicker';
+import {calcularIngresos} from '../../utils/calcularIngresos'
+import {calcularTablaAmortizacion} from '../../utils/calcularTablaAmortizacion'
+import {calcularEdad} from '../../utils/calcularEdad'
+import {Picker} from '@react-native-picker/picker';
 import { Alert, Pressable, Image, SafeAreaView, ScrollView, Text, TextInput, View, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -20,32 +24,36 @@ const styles = StyleSheet.create({
     width:300,
     margin:4,
     padding:4,
-    borderRadius: '4px',
+    borderRadius: 4,
   },
   buttons: {
-    backgroundColor: 'yellow',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    // display:'flex',
+    // flexDirection:'row',
+    // justifyContent:'center',
+    // alignItems:'center',
+    // marginEnd:24,
   },
   buttonRight: {
     position: 'absolute',
     right: 0,
-    bottom: 0,
-    padding: 10,
+    bottom: 24,
+    padding: 24,
     backgroundColor: '#f0f0f0',
     borderRadius: 5,
+    borderWidth: 2,
   },
   buttonLeft: {
     position: 'absolute',
     left: 0,
-    bottom: 0,
-    padding: 10,
+    bottom: 24,
+    padding: 24,
     backgroundColor: '#f0f0f0',
     borderRadius: 5,
+    borderWidth: 2,
   },
   input: {
-    border:'1px solid black', 
-    borderRadius: '4px',
+    borderWidth: 2,
+    borderRadius: 4,
     margin: 4,
     padding: 4,
   },
@@ -80,17 +88,46 @@ const Form = () => {
   const [cuota, setCuota] = useState(0);
   const [cuotas, setCuotas] = useState([]);
 
+  const [mostrarAlerta, setMostrarAlerta] = useState(false);
+  const currentDate = new Date();
+  const maxDate = new Date(currentDate);
+  maxDate.setFullYear(currentDate.getFullYear() - 18);
+  const minDate = new Date(currentDate);
+  minDate.setFullYear(currentDate.getFullYear() - 65);
+
+
   const handleNext = (e) => {
     e.preventDefault();
     if (parteDelFormulario < 4) setParteDelFormulario(parteDelFormulario + 1);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handlePrevious = (e) => {
     e.preventDefault();
     if (parteDelFormulario > 1) setParteDelFormulario(parteDelFormulario - 1);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+
+
+  useEffect(() => {
+    const result = calcularTablaAmortizacion(
+      valorPrestamo,
+      tasaAnual,
+      plazoFinanciamiento,
+      saldoDelPrecio,
+      seguroDesempleo,
+      gastosAdministrativos
+    );
+    setCuotas(result);
+    if (result.length > 0) setCuota(result[0]['CUOTA A PAGAR']);
+
+    setIngresosTotales(
+      calcularIngresos(ingresosNetosMensuales, ingresosNetosMensuales2, ingresosNetosMensuales3, vehiculoPropio, vehiculoPropio2, vehiculoPropio3, esSocioDeUnClub, esSocioDeUnClub2, esSocioDeUnClub3)
+    );
+  }, [ valorPrestamo, tasaAnual, plazoFinanciamiento, setCuota, cuota, saldoDelPrecio, seguroDesempleo, gastosAdministrativos, edad, ingresosTotales, setIngresosTotales, ingresosNetosMensuales, ingresosNetosMensuales2, ingresosNetosMensuales3, vehiculoPropio, vehiculoPropio2, vehiculoPropio3, esSocioDeUnClub, esSocioDeUnClub2, esSocioDeUnClub3,]
+  );
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -107,6 +144,7 @@ const Form = () => {
           <TextInput style={styles.input} value={nombre} onChangeText={setNombre} />
           <TextInput style={styles.input} value={dni} onChangeText={setDni} inputMode="numeric"/>
           <TextInput style={styles.input} value={email} onChangeText={setEmail} />
+          <Text style={styles.title}>Edad actual: {edad}</Text>
           <View
           style={{width: 270, margin:4}}
           >
@@ -114,7 +152,12 @@ const Form = () => {
             <DateTimePicker
             mode="single"
             date={birthday}
-            onChange={(params) => setBirthday(params.date)}
+            maxDate={maxDate.toISOString().split('T')[0]}
+            minDate={minDate.toISOString().split('T')[0]}
+            onChange={(params) => {
+              setBirthday(params.date)
+              setEdad(calcularEdad(params.date));
+            }}
             />
           </View>
           </ScrollView>
@@ -126,22 +169,48 @@ const Form = () => {
         contentContainerStyle={styles.inputContainer}
         >
           <Text style={styles.title}>2# Ingresos mensuales</Text>
+          <Text style={{color: 'blue', textAlign:'center', margin: 8}} >Ingresos totales: {ingresosTotales}</Text>
           <ScrollView
            
           >
           <Text>Propietario 1</Text>
-          <TextInput style={styles.input} value={ingresosNetosMensuales} onChangeText={setIngresosNetosMensuales} />
-          <TextInput style={styles.input} value={vehiculoPropio} onChangeText={setVehiculoPropio} />
+          <TextInput style={styles.input} value={ingresosNetosMensuales} onChangeText={setIngresosNetosMensuales} inputMode="numeric" />
+          <Picker style={styles.input} 
+            // selectedValue={selectedLanguage}
+            onValueChange={(itemValue) =>
+              setVehiculoPropio(+itemValue)
+            }>
+            <Picker.Item label="0" value="0" />
+            <Picker.Item label="1" value="1" />
+            <Picker.Item label="2" value="2" />
+            <Picker.Item label="3" value="3" />
+          </Picker>
           <TextInput style={styles.input} value={esSocioDeUnClub} onChangeText={setEsSocioDeUnClub} />
           
           <Text>Propietario 2</Text>
-          <TextInput style={styles.input} value={ingresosNetosMensuales2} onChangeText={setIngresosNetosMensuales2} />
-          <TextInput style={styles.input} value={vehiculoPropio2} onChangeText={setVehiculoPropio2} />
+          <TextInput style={styles.input} value={ingresosNetosMensuales2} onChangeText={setIngresosNetosMensuales2} inputMode="numeric" />
+          <Picker style={styles.input} 
+            onValueChange={(itemValue) =>
+              setVehiculoPropio2(+itemValue)
+            }>
+            <Picker.Item label="0" value="0" />
+            <Picker.Item label="1" value="1" />
+            <Picker.Item label="2" value="2" />
+            <Picker.Item label="3" value="3" />
+          </Picker>
           <TextInput style={styles.input} value={esSocioDeUnClub2} onChangeText={setEsSocioDeUnClub2} />
           
           <Text>Propietario 3</Text>
-          <TextInput style={styles.input} value={ingresosNetosMensuales3} onChangeText={setIngresosNetosMensuales3} />
-          <TextInput style={styles.input} value={vehiculoPropio3} onChangeText={setVehiculoPropio3} />
+          <TextInput style={styles.input} value={ingresosNetosMensuales3} onChangeText={setIngresosNetosMensuales3} inputMode="numeric" />
+          <Picker style={styles.input} 
+            onValueChange={(itemValue) =>
+              setVehiculoPropio3(+itemValue)
+            }>
+            <Picker.Item label="0" value="0" />
+            <Picker.Item label="1" value="1" />
+            <Picker.Item label="2" value="2" />
+            <Picker.Item label="3" value="3" />
+          </Picker>
           <TextInput style={styles.input} value={esSocioDeUnClub3} onChangeText={setEsSocioDeUnClub3} />
           </ScrollView>
         </View>
