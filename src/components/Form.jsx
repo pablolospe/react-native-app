@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
     padding:4,
     borderRadius: 4,
   },
+  label: {
+    color:'blue',
+    marginTop: 4,
+  },
   buttons: {
     // display:'flex',
     // flexDirection:'row',
@@ -57,6 +61,26 @@ const styles = StyleSheet.create({
     margin: 4,
     padding: 4,
   },
+  insufficientFunds: {
+    margin: 15,
+    padding: 15,
+    borderColor: 'red',
+    borderWidth: 1,
+    borderRadius: 15,
+    alignItems: 'center',
+    backgroundColor: '#FF9999'
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  cell: {
+    margin: 10,
+    // fontSize: 12,
+    textAlign: 'center',
+  },
 });
 
 const Form = () => {
@@ -66,10 +90,10 @@ const Form = () => {
   const [tipoDeId, setTipoDeId] = useState('CI');
   const [dni, setDni] = useState('23456789');
   const [email, setEmail] = useState('jp@gmail.com');
-  const [birthday, setBirthday] = useState();
+  const [birthday, setBirthday] = useState('1981-11-01');
   const [edad, setEdad] = useState('');
   const [valorUnidad, setValorUnidad] = useState('');
-  const [valorPrestamo, setValorPrestamo] = useState('');
+  const [valorPrestamo, setValorPrestamo] = useState('20000');
   const [tasaAnual, setTasaAnual] = useState(7);
   const [plazoFinanciamiento, setPlazoFinanciamiento] = useState(24);
   const [saldoDelPrecio, setSaldoDelPrecio] = useState(4.8);
@@ -173,45 +197,73 @@ const Form = () => {
           <ScrollView
            
           >
-          <Text>Propietario 1</Text>
-          <TextInput style={styles.input} value={ingresosNetosMensuales} onChangeText={setIngresosNetosMensuales} inputMode="numeric" />
-          <Picker style={styles.input} 
-            // selectedValue={selectedLanguage}
-            onValueChange={(itemValue) =>
-              setVehiculoPropio(+itemValue)
-            }>
-            <Picker.Item label="0" value="0" />
-            <Picker.Item label="1" value="1" />
-            <Picker.Item label="2" value="2" />
-            <Picker.Item label="3" value="3" />
-          </Picker>
-          <TextInput style={styles.input} value={esSocioDeUnClub} onChangeText={setEsSocioDeUnClub} />
           
-          <Text>Propietario 2</Text>
-          <TextInput style={styles.input} value={ingresosNetosMensuales2} onChangeText={setIngresosNetosMensuales2} inputMode="numeric" />
-          <Picker style={styles.input} 
-            onValueChange={(itemValue) =>
-              setVehiculoPropio2(+itemValue)
-            }>
-            <Picker.Item label="0" value="0" />
-            <Picker.Item label="1" value="1" />
-            <Picker.Item label="2" value="2" />
-            <Picker.Item label="3" value="3" />
-          </Picker>
-          <TextInput style={styles.input} value={esSocioDeUnClub2} onChangeText={setEsSocioDeUnClub2} />
+          <Text style={styles.title}>Propietario 1</Text>
           
-          <Text>Propietario 3</Text>
-          <TextInput style={styles.input} value={ingresosNetosMensuales3} onChangeText={setIngresosNetosMensuales3} inputMode="numeric" />
-          <Picker style={styles.input} 
+
+          <Text style={styles.label}>Ingresos mensuales</Text>
+            <TextInput 
+                style={styles.input}
+                value={String(ingresosNetosMensuales)} 
+                onChangeText={(e) => +e ? setIngresosNetosMensuales(e) : null} 
+                inputMode='numeric'
+                />
+          
+
+          {/* <Text style={styles.label}>Vehículos que posee (-150 USD cada uno)</Text> */}
+            {/* <Picker 
+            // style={styles.input} 
+            selectedValue='number'
+              value={vehiculoPropio}
+              onValueChange={(e) =>
+                setVehiculoPropio(Number(e)) 
+              }>
+              <Picker.Item label="" value="0" />
+              <Picker.Item label="1" value="1" />
+              <Picker.Item label="2" value="2" />
+              <Picker.Item label="3" value="3" />
+            </Picker> */}
+          
+          {/* <TextInput style={styles.input} value={esSocioDeUnClub} onChangeText={setEsSocioDeUnClub} /> */}
+          
+          <Text style={styles.label}>Propietario 2</Text>
+          <TextInput 
+              style={styles.input} 
+              value={String(ingresosNetosMensuales2)} 
+              onChangeText={(e) => +e ? setIngresosNetosMensuales2(e) : null} 
+              inputMode='numeric'
+              />          
+          
+          {/* <Picker style={styles.input} 
             onValueChange={(itemValue) =>
-              setVehiculoPropio3(+itemValue)
+              setVehiculoPropio2(Number(itemValue))
             }>
             <Picker.Item label="0" value="0" />
             <Picker.Item label="1" value="1" />
             <Picker.Item label="2" value="2" />
             <Picker.Item label="3" value="3" />
-          </Picker>
-          <TextInput style={styles.input} value={esSocioDeUnClub3} onChangeText={setEsSocioDeUnClub3} />
+          </Picker> */}
+          {/* <TextInput style={styles.input} value={esSocioDeUnClub2} onChangeText={setEsSocioDeUnClub2} /> */}
+          
+          <Text style={styles.label}>Propietario 3</Text>
+
+          <TextInput 
+              style={styles.input} 
+              value={String(ingresosNetosMensuales3)} 
+              onChangeText={(e) => +e ? setIngresosNetosMensuales3(e) : null} 
+              inputMode='numeric'
+              />
+          
+          {/* <Picker style={styles.input} 
+            onValueChange={(itemValue) =>
+              setVehiculoPropio3(Number(itemValue))
+            }>
+            <Picker.Item label="0" value="0" />
+            <Picker.Item label="1" value="1" />
+            <Picker.Item label="2" value="2" />
+            <Picker.Item label="3" value="3" />
+          </Picker> */}
+          {/* <TextInput style={styles.input} value={esSocioDeUnClub3} onChangeText={setEsSocioDeUnClub3} /> */}
           </ScrollView>
         </View>
       )}
@@ -222,13 +274,23 @@ const Form = () => {
           <ScrollView
            
           >
-          <TextInput style={styles.input} value={valorUnidad} onChangeText={setValorUnidad} />
-          <TextInput style={styles.input} value={valorPrestamo} onChangeText={setValorPrestamo} />
-          <TextInput style={styles.input} value={plazoFinanciamiento} onChangeText={setPlazoFinanciamiento} />
-          <TextInput style={styles.input} value={tasaAnual} onChangeText={setTasaAnual} />
-          <TextInput style={styles.input} value={saldoDelPrecio} onChangeText={setSaldoDelPrecio} />
-          <TextInput style={styles.input} value={seguroDesempleo} onChangeText={setSeguroDesempleo} />
-          <TextInput style={styles.input} value={gastosAdministrativos} onChangeText={setGastosAdministrativos} />
+          <Text style={styles.label}>Valor total de la unidad</Text>
+          <TextInput style={styles.input} value={String(valorUnidad)} onChangeText={(e)=> +e ? setValorUnidad(e) : null} />
+          
+          <Text style={styles.label}>Valor total del préstamo</Text>
+          <TextInput style={styles.input} value={String(valorPrestamo)} onChangeText={(e) => +e ? setValorPrestamo(e) : null} inputMode='numeric' />
+          
+          <Text style={styles.label}>Plazo del financiamiento (en meses)</Text>
+          <TextInput style={styles.input} value={String(plazoFinanciamiento)} onChangeText={(e) => +e ? setPlazoFinanciamiento(e) : null} />
+          
+          <Text style={styles.label}>Tasa anual</Text>
+          <TextInput style={styles.input} value={String(tasaAnual)} onChangeText={(e) => +e ? setTasaAnual(e) : null} />
+          <Text style={styles.label}>Saldo del precio</Text>
+          <TextInput style={styles.input} value={String(saldoDelPrecio)} onChangeText={(e) => +e ? setSaldoDelPrecio(e) : null} />
+          <Text style={styles.label}>Seguro de desempleo</Text>
+          <TextInput style={styles.input} value={String(seguroDesempleo)} onChangeText={(e) => +e ? setSeguroDesempleo(e) : null} />
+          <Text style={styles.label}>Gastos administrativos</Text>
+          <TextInput style={styles.input} value={String(gastosAdministrativos)} onChangeText={(e) => +e ? setGastosAdministrativos(e) : null} />
         
 
           </ScrollView>
@@ -238,11 +300,9 @@ const Form = () => {
       {parteDelFormulario === 4 && (
         <View>
           <Text style={styles.title}>4# Tabla y Excel</Text>
-          <ScrollView
+          <ScrollView >
            
-           >
-           
-           <View>
+           {/* <View>
             <Text>Edad: {edad} años </Text>
             <Text>{tipoDeId}: {dni} </Text>
             <Text>Valor de la unidad: USD {valorUnidad}</Text>
@@ -254,8 +314,48 @@ const Form = () => {
             <Text>Seguro de desempleo: {seguroDesempleo}%</Text>
             <Text>Gastos administrativos: {gastosAdministrativos}%</Text>
             <Text>Total ingresos mensuales: USD {ingresosTotales}</Text>
-          </View>
+          </View> */}
            
+          <View>
+            {ingresosTotales < cuota ? (
+              <View style={styles.insufficientFunds}>
+                <Text>Ingresos insuficientes. Diferencia: {cuota - ingresosTotales}</Text>
+              </View>
+            ) : (
+              <ScrollView horizontal>
+                <View>
+                  <View style={styles.row}>
+                    
+                    <Text style={styles.cell}>Cuota{"\n"}nº</Text>
+                    <Text style={styles.cell}>Capital{"\n"}amortizado</Text>
+                    <Text style={styles.cell}>Interés</Text>
+                    <Text style={styles.cell}>Cuota{"\n"}pura</Text>
+                    <Text style={styles.cell}>Cuota{"\n"}a{"\n"}pagar</Text>
+                    <Text style={styles.cell}>Saldo{"\n"}del{"\n"}precio</Text>
+                    <Text style={styles.cell}>Seguro{"\n"}de{"\n"}desempleo</Text>
+                    <Text style={styles.cell}>Gastos{"\n"}admin</Text>
+                    <Text style={styles.cell}>Capital{"\n"}remanente</Text>
+                    
+                  </View>
+                  
+                  {cuotas.map((c) => (
+                    <View style={styles.row} key={c['NRO. DE CUOTA']}>
+                      <Text style={styles.cell}>{c['NRO. DE CUOTA']}</Text>
+                      <Text style={styles.cell}>{c['CAPITAL AMORTIZADO'].toFixed(2)}</Text>
+                      <Text style={styles.cell}>{c['INTERÉS'].toFixed(2)}</Text>
+                      <Text style={styles.cell}>{c['CUOTA PURA'].toFixed(2)}</Text>
+                      <Text style={styles.cell}>{c['CUOTA A PAGAR']}</Text>
+                      <Text style={styles.cell}>{c['SALDO DEL PRECIO']}</Text>
+                      <Text style={styles.cell}>{c['SEGURO DE DESEMPLEO']}</Text>
+                      <Text style={styles.cell}>{c['GASTOS ADMINISTRATIVOS']}</Text>
+                      <Text style={styles.cell}>{c['CAPITAL REMANENTE'].toFixed(2)}</Text>
+                      
+                    </View>
+                  ))}
+                </View>
+              </ScrollView>
+            )}
+          </View>
  
            </ScrollView>
         </View>
