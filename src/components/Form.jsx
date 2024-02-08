@@ -4,84 +4,107 @@ import {calcularIngresos} from '../../utils/calcularIngresos'
 import {calcularTablaAmortizacion} from '../../utils/calcularTablaAmortizacion'
 import {calcularEdad} from '../../utils/calcularEdad'
 import {Picker} from '@react-native-picker/picker';
-import { Alert, Pressable, Image, SafeAreaView, ScrollView, Text, TextInput, View, StyleSheet } from 'react-native';
+import { Pressable, Image, SafeAreaView, ScrollView, Text, TextInput, View, StyleSheet } from 'react-native';
+import {styles} from '../../assets/styles/styles'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: 'full',
-    justifyContent: 'space-between',
-    backgroundColor: 'white',
-  },
-  inputContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  title: {
-    color:'white',
-    backgroundColor: 'black',
-    textAlign: 'center',
-    width:300,
-    margin:4,
-    padding:4,
-    borderRadius: 4,
-  },
-  label: {
-    color:'blue',
-    marginTop: 4,
-  },
-  buttons: {
-    // display:'flex',
-    // flexDirection:'row',
-    // justifyContent:'center',
-    // alignItems:'center',
-    // marginEnd:24,
-  },
-  buttonRight: {
-    position: 'absolute',
-    right: 0,
-    bottom: 24,
-    padding: 24,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
-    borderWidth: 2,
-  },
-  buttonLeft: {
-    position: 'absolute',
-    left: 0,
-    bottom: 24,
-    padding: 24,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
-    borderWidth: 2,
-  },
-  input: {
-    borderWidth: 2,
-    borderRadius: 4,
-    margin: 4,
-    padding: 4,
-  },
-  insufficientFunds: {
-    margin: 15,
-    padding: 15,
-    borderColor: 'red',
-    borderWidth: 1,
-    borderRadius: 15,
-    alignItems: 'center',
-    backgroundColor: '#FF9999'
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  cell: {
-    margin: 10,
-    // fontSize: 12,
-    textAlign: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     width: 'full',
+//     justifyContent: 'space-between',
+//     backgroundColor: '#c5d9ed',
+//   },
+//   inputContainer: {
+//     flex: 1,
+//     justifyContent: 'center',
+//   },
+//   title: {
+//     fontSize: 20,
+//     fontWeight:'bold',
+//     color:'white',
+//     backgroundColor: 'navy',
+//     textAlign: 'center',
+//     width:350,
+//     margin:4,
+//     padding:4,
+//     borderRadius: 4,
+//   },
+//   label: {
+//     color:'#0a4b78',
+//     marginTop: 4,
+//   },
+//   buttons: {
+//     // display:'flex',
+//     // flexDirection:'row',
+//     // justifyContent:'center',
+//     // alignItems:'center',
+//     // marginEnd:24,
+//   },
+//   buttonText: {
+//     fontWeight:'bold',
+//     color: 'navy',
+//     fontSize: 15,
+//   },
+//   buttonRight: {
+//     position: 'absolute',
+//     right: 0,
+//     bottom: 24,
+//     padding: 24,
+//     backgroundColor: '#f0f0f0',
+//     borderRadius: 25,
+//     borderWidth: 2,
+//   },
+//   buttonLeft: {
+//     position: 'absolute',
+//     left: 0,
+//     bottom: 24,
+//     padding: 24,
+//     backgroundColor: '#f0f0f0',
+//     borderRadius: 25,
+//     borderWidth: 2,
+//   },
+//   input: {
+//     borderWidth: 2,
+//     borderRadius: 4,
+//     margin: 4,
+//     padding: 4,
+//   },
+//   insufficientFunds: {
+//     margin: 15,
+//     padding: 15,
+//     borderColor: 'red',
+//     borderWidth: 1,
+//     borderRadius: 15,
+//     alignItems: 'center',
+//     backgroundColor: '#FF9999'
+//   },
+//   row: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-around',
+//     marginBottom: 2,
+//     textAlign: 'center',
+//     borderWidth:1,
+//   },
+//   cell: {
+//     margin: 8,
+//     // fontSize: 12,
+//     width:60,
+//     textAlign: 'center',
+//   },
+//   topCell: {
+//     // margin: 10,
+//     fontWeight:'bold',
+//     width:60,
+//     fontSize: 10,
+//     textAlign: 'center',
+//     justifyContent: 'center',
+//     alignSelf: 'center',
+//   },
+//   tabla: {
+//     margin: 10,
+//     maxWidth: 330,
+//   },
+// });
 
 const Form = () => {
   const [parteDelFormulario, setParteDelFormulario] = useState(1);
@@ -120,19 +143,13 @@ const Form = () => {
   minDate.setFullYear(currentDate.getFullYear() - 65);
 
 
-  const handleNext = (e) => {
-    e.preventDefault();
-    if (parteDelFormulario < 4) setParteDelFormulario(parteDelFormulario + 1);
-    // window.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleNext = () => { if (parteDelFormulario < 4) setParteDelFormulario(parteDelFormulario + 1)};
+
+  const handlePrevious = () => {if (parteDelFormulario > 1) setParteDelFormulario(parteDelFormulario - 1)};
+
+  const exportExcel = () => {
+    // exportToExcel(cuotas, nombre)
   };
-
-  const handlePrevious = (e) => {
-    e.preventDefault();
-    if (parteDelFormulario > 1) setParteDelFormulario(parteDelFormulario - 1);
-    // window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-
 
   useEffect(() => {
     const result = calcularTablaAmortizacion(
@@ -168,7 +185,7 @@ const Form = () => {
           <TextInput style={styles.input} value={nombre} onChangeText={setNombre} />
           <TextInput style={styles.input} value={dni} onChangeText={setDni} inputMode="numeric"/>
           <TextInput style={styles.input} value={email} onChangeText={setEmail} />
-          <Text style={styles.title}>Edad actual: {edad}</Text>
+          <Text style={styles.subTitle}>Edad actual: {edad}</Text>
           <View
           style={{width: 270, margin:4}}
           >
@@ -198,9 +215,8 @@ const Form = () => {
            
           >
           
-          <Text style={styles.title}>Propietario 1</Text>
+          <Text style={styles.subTitle}>Propietario 1</Text>
           
-
           <Text style={styles.label}>Ingresos mensuales</Text>
             <TextInput 
                 style={styles.input}
@@ -214,11 +230,11 @@ const Form = () => {
             {/* <Picker 
             // style={styles.input} 
             selectedValue='number'
-              value={vehiculoPropio}
-              onValueChange={(e) =>
-                setVehiculoPropio(Number(e)) 
-              }>
-              <Picker.Item label="" value="0" />
+            value={vehiculoPropio}
+            onValueChange={(e) =>
+              setVehiculoPropio(Number(e)) 
+            }>
+            <Picker.Item label="" value="0" />
               <Picker.Item label="1" value="1" />
               <Picker.Item label="2" value="2" />
               <Picker.Item label="3" value="3" />
@@ -226,7 +242,8 @@ const Form = () => {
           
           {/* <TextInput style={styles.input} value={esSocioDeUnClub} onChangeText={setEsSocioDeUnClub} /> */}
           
-          <Text style={styles.label}>Propietario 2</Text>
+          <Text style={styles.subTitle}>Propietario 2</Text>
+          <Text style={styles.label}>Ingresos mensuales</Text>
           <TextInput 
               style={styles.input} 
               value={String(ingresosNetosMensuales2)} 
@@ -245,8 +262,8 @@ const Form = () => {
           </Picker> */}
           {/* <TextInput style={styles.input} value={esSocioDeUnClub2} onChangeText={setEsSocioDeUnClub2} /> */}
           
-          <Text style={styles.label}>Propietario 3</Text>
-
+          <Text style={styles.subTitle}>Propietario 3</Text>
+          <Text style={styles.label}>Ingresos mensuales</Text>
           <TextInput 
               style={styles.input} 
               value={String(ingresosNetosMensuales3)} 
@@ -322,19 +339,19 @@ const Form = () => {
                 <Text>Ingresos insuficientes. Diferencia: {cuota - ingresosTotales}</Text>
               </View>
             ) : (
-              <ScrollView horizontal>
+              <ScrollView style={styles.tabla} horizontal>
                 <View>
                   <View style={styles.row}>
                     
-                    <Text style={styles.cell}>Cuota{"\n"}nº</Text>
-                    <Text style={styles.cell}>Capital{"\n"}amortizado</Text>
-                    <Text style={styles.cell}>Interés</Text>
-                    <Text style={styles.cell}>Cuota{"\n"}pura</Text>
-                    <Text style={styles.cell}>Cuota{"\n"}a{"\n"}pagar</Text>
-                    <Text style={styles.cell}>Saldo{"\n"}del{"\n"}precio</Text>
-                    <Text style={styles.cell}>Seguro{"\n"}de{"\n"}desempleo</Text>
-                    <Text style={styles.cell}>Gastos{"\n"}admin</Text>
-                    <Text style={styles.cell}>Capital{"\n"}remanente</Text>
+                    <Text style={styles.topCell}>Cuota{"\n"}nº</Text>
+                    <Text style={styles.topCell}>Capital{"\n"}amortizado</Text>
+                    <Text style={styles.topCell}>Interés</Text>
+                    <Text style={styles.topCell}>Cuota{"\n"}pura</Text>
+                    <Text style={styles.topCell}>Cuota{"\n"}a{"\n"}pagar</Text>
+                    <Text style={styles.topCell}>Saldo{"\n"}del{"\n"}precio</Text>
+                    <Text style={styles.topCell}>Seguro{"\n"}de{"\n"}desempleo</Text>
+                    <Text style={styles.topCell}>Gastos{"\n"}admin</Text>
+                    <Text style={styles.topCell}>Capital{"\n"}remanente</Text>
                     
                   </View>
                   
@@ -364,15 +381,20 @@ const Form = () => {
       <View style={styles.buttons}>
         {parteDelFormulario > 1 && (
           <Pressable style={styles.buttonLeft} onPress={handlePrevious}>
-            <Text>Back</Text>
+            <Text style={styles.buttonText}>Back</Text>
           </Pressable>
         )}
 
         {parteDelFormulario < 4 && (
           <Pressable style={styles.buttonRight} onPress={handleNext}>
-            <Text>Next</Text>
+            <Text style={styles.buttonText}>Next</Text>
           </Pressable>
         )}
+        {/* {parteDelFormulario === 4 && (
+          <Pressable style={styles.buttonRight} onPress={exportExcel}>
+            <Text style={styles.buttonText}>Excel</Text>
+          </Pressable>
+        )} */}
       </View>
     </SafeAreaView>
   );
