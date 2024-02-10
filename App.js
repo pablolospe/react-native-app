@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: Constants.statusBarHeight,
     flex: 1,
-    backgroundColor: '#9ec2e6',
+    backgroundColor: '#c5d9ed',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import DateTimePicker from 'react-native-ui-datepicker';
 import {calcularIngresos} from '../../utils/calcularIngresos'
 import {calcularTablaAmortizacion} from '../../utils/calcularTablaAmortizacion'
+import {calcularPrestamoMaximo} from '../../utils/calcularPrestamoMaximo'
 import {calcularEdad} from '../../utils/calcularEdad'
 import {Picker} from '@react-native-picker/picker';
-import { Pressable, Image, SafeAreaView, ScrollView, Text, TextInput, View, StyleSheet } from 'react-native';
+import { Pressable, Image, SafeAreaView, ScrollView, Text, TextInput, View } from 'react-native';
 import {styles} from '../../assets/styles/styles'
 
 // const styles = StyleSheet.create({
@@ -115,8 +116,8 @@ const Form = () => {
   const [email, setEmail] = useState('jp@gmail.com');
   const [birthday, setBirthday] = useState('1981-11-01');
   const [edad, setEdad] = useState('');
-  const [valorUnidad, setValorUnidad] = useState('');
-  const [valorPrestamo, setValorPrestamo] = useState('20000');
+  const [valorUnidad, setValorUnidad] = useState('120000');
+  const [valorPrestamo, setValorPrestamo] = useState('');
   const [tasaAnual, setTasaAnual] = useState(7);
   const [plazoFinanciamiento, setPlazoFinanciamiento] = useState(24);
   const [saldoDelPrecio, setSaldoDelPrecio] = useState(4.8);
@@ -142,14 +143,18 @@ const Form = () => {
   const minDate = new Date(currentDate);
   minDate.setFullYear(currentDate.getFullYear() - 65);
 
+  const ingresoRatio = 0.3;
 
   const handleNext = () => { if (parteDelFormulario < 4) setParteDelFormulario(parteDelFormulario + 1)};
 
   const handlePrevious = () => {if (parteDelFormulario > 1) setParteDelFormulario(parteDelFormulario - 1)};
 
-  const exportExcel = () => {
-    // exportToExcel(cuotas, nombre)
+  const handleCalcularPrestamoMaximo = () => {
+    const prestamoMaximo = calcularPrestamoMaximo( ingresosTotales, tasaAnual, plazoFinanciamiento, ingresoRatio, saldoDelPrecio, seguroDesempleo, gastosAdministrativos);
+    // setMostrarAlerta(true)
+    setValorPrestamo(prestamoMaximo);
   };
+
 
   useEffect(() => {
     const result = calcularTablaAmortizacion(
@@ -172,6 +177,10 @@ const Form = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+
+      {/* //////////// */}
+      {/* P A R T E  1 */}
+      {/* //////////// */}
       {parteDelFormulario === 1 && (
         <View
         contentContainerStyle={styles.inputContainer}
@@ -185,25 +194,29 @@ const Form = () => {
           <TextInput style={styles.input} value={nombre} onChangeText={setNombre} />
           <TextInput style={styles.input} value={dni} onChangeText={setDni} inputMode="numeric"/>
           <TextInput style={styles.input} value={email} onChangeText={setEmail} />
-          <Text style={styles.subTitle}>Edad actual: {edad}</Text>
-          <View
-          style={{width: 270, margin:4}}
-          >
-            <Text>Fecha de nacimiento: {birthday ? `${birthday?.$D}/${birthday?.$M +1}/${birthday?.$y}`: null}</Text>
-            <DateTimePicker
-            mode="single"
-            date={birthday}
-            maxDate={maxDate.toISOString().split('T')[0]}
-            minDate={minDate.toISOString().split('T')[0]}
-            onChange={(params) => {
-              setBirthday(params.date)
-              setEdad(calcularEdad(params.date));
-            }}
-            />
-          </View>
+            <Text style={styles.subTitle}>Fecha de nacimiento: </Text>
+            {/* {!birthday ? null : <Text >{`${birthday.$D}-${birthday.$m}-${birthday.$Y}`} </Text>} */}
+            <View style={styles.calendar}>
+                <DateTimePicker
+                mode="single"
+                date={birthday}
+                maxDate={maxDate.toISOString().split('T')[0]}
+                minDate={minDate.toISOString().split('T')[0]}
+                onChange={(params) => {
+                  setBirthday(params.date)
+                  setEdad(calcularEdad(params.date));
+                }}
+                />
+            </View>
+            <Text style={styles.subTitle}>Edad actual: {edad}</Text>
+          
           </ScrollView>
         </View>
       )}
+
+      {/* //////////// */}
+      {/* P A R T E  2 */}
+      {/* //////////// */}
 
       {parteDelFormulario === 2 && (
         <View
@@ -285,11 +298,15 @@ const Form = () => {
         </View>
       )}
 
+      {/* //////////// */}
+      {/* P A R T E  3 */}
+      {/* //////////// */}
+
       {parteDelFormulario === 3 && (
         <View>
           <Text style={styles.title}>3# Datos del préstamo</Text>
           <ScrollView
-           
+
           >
           <Text style={styles.label}>Valor total de la unidad</Text>
           <TextInput style={styles.input} value={String(valorUnidad)} onChangeText={(e)=> +e ? setValorUnidad(e) : null} />
@@ -309,10 +326,20 @@ const Form = () => {
           <Text style={styles.label}>Gastos administrativos</Text>
           <TextInput style={styles.input} value={String(gastosAdministrativos)} onChangeText={(e) => +e ? setGastosAdministrativos(e) : null} />
         
+          <Pressable
+            onPress={handleCalcularPrestamoMaximo}
+            style={styles.buttonCalcular}
+          >
+            <Text style={styles.buttonText}>Calcular préstamo máximo</Text>
+          </Pressable>
 
           </ScrollView>
         </View>
       )}
+
+      {/* //////////// */}
+      {/* P A R T E  4 */}
+      {/* //////////// */}
 
       {parteDelFormulario === 4 && (
         <View>
