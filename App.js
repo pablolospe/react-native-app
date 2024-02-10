@@ -20,7 +20,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Constants.statusBarHeight,
+    // marginTop: Constants.statusBarHeight,
     flex: 1,
     backgroundColor: '#c5d9ed',
     alignItems: 'center',

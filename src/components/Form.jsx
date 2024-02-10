@@ -343,7 +343,7 @@ const Form = () => {
 
       {parteDelFormulario === 4 && (
         <View>
-          <Text style={styles.title}>4# Tabla y Excel</Text>
+          <Text style={styles.title}>4# Tabla</Text>
           <ScrollView >
            
            {/* <View>
