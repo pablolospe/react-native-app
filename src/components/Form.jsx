@@ -8,112 +8,13 @@ import {Picker} from '@react-native-picker/picker';
 import { Pressable, Image, SafeAreaView, ScrollView, Text, TextInput, View } from 'react-native';
 import {styles} from '../../assets/styles/styles'
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     width: 'full',
-//     justifyContent: 'space-between',
-//     backgroundColor: '#c5d9ed',
-//   },
-//   inputContainer: {
-//     flex: 1,
-//     justifyContent: 'center',
-//   },
-//   title: {
-//     fontSize: 20,
-//     fontWeight:'bold',
-//     color:'white',
-//     backgroundColor: 'navy',
-//     textAlign: 'center',
-//     width:350,
-//     margin:4,
-//     padding:4,
-//     borderRadius: 4,
-//   },
-//   label: {
-//     color:'#0a4b78',
-//     marginTop: 4,
-//   },
-//   buttons: {
-//     // display:'flex',
-//     // flexDirection:'row',
-//     // justifyContent:'center',
-//     // alignItems:'center',
-//     // marginEnd:24,
-//   },
-//   buttonText: {
-//     fontWeight:'bold',
-//     color: 'navy',
-//     fontSize: 15,
-//   },
-//   buttonRight: {
-//     position: 'absolute',
-//     right: 0,
-//     bottom: 24,
-//     padding: 24,
-//     backgroundColor: '#f0f0f0',
-//     borderRadius: 25,
-//     borderWidth: 2,
-//   },
-//   buttonLeft: {
-//     position: 'absolute',
-//     left: 0,
-//     bottom: 24,
-//     padding: 24,
-//     backgroundColor: '#f0f0f0',
-//     borderRadius: 25,
-//     borderWidth: 2,
-//   },
-//   input: {
-//     borderWidth: 2,
-//     borderRadius: 4,
-//     margin: 4,
-//     padding: 4,
-//   },
-//   insufficientFunds: {
-//     margin: 15,
-//     padding: 15,
-//     borderColor: 'red',
-//     borderWidth: 1,
-//     borderRadius: 15,
-//     alignItems: 'center',
-//     backgroundColor: '#FF9999'
-//   },
-//   row: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     marginBottom: 2,
-//     textAlign: 'center',
-//     borderWidth:1,
-//   },
-//   cell: {
-//     margin: 8,
-//     // fontSize: 12,
-//     width:60,
-//     textAlign: 'center',
-//   },
-//   topCell: {
-//     // margin: 10,
-//     fontWeight:'bold',
-//     width:60,
-//     fontSize: 10,
-//     textAlign: 'center',
-//     justifyContent: 'center',
-//     alignSelf: 'center',
-//   },
-//   tabla: {
-//     margin: 10,
-//     maxWidth: 330,
-//   },
-// });
-
 const Form = () => {
   const [parteDelFormulario, setParteDelFormulario] = useState(1);
 
-  const [nombre, setNombre] = useState('Juan Perez');
-  const [tipoDeId, setTipoDeId] = useState('CI');
+  const [nombre, setNombre] = useState('Pablo X. Lospennato');
+  const [tipoDeId, setTipoDeId] = useState('DNI');
   const [dni, setDni] = useState('23456789');
-  const [email, setEmail] = useState('jp@gmail.com');
+  const [email, setEmail] = useState('pablolospennato@gmail.com');
   const [birthday, setBirthday] = useState('1981-11-01');
   const [edad, setEdad] = useState('');
   const [valorUnidad, setValorUnidad] = useState('120000');
@@ -346,27 +247,14 @@ const Form = () => {
           <Text style={styles.title}>4# Tabla</Text>
           <ScrollView >
            
-           {/* <View>
-            <Text>Edad: {edad} años </Text>
-            <Text>{tipoDeId}: {dni} </Text>
-            <Text>Valor de la unidad: USD {valorUnidad}</Text>
-            <Text>Valor del préstamo: USD {valorPrestamo}</Text>
-            <Text>Plazo del financiamiento: {plazoFinanciamiento} meses</Text>
-              </View>
-              <View>
-            <Text>Saldo del precio: {saldoDelPrecio}%</Text>
-            <Text>Seguro de desempleo: {seguroDesempleo}%</Text>
-            <Text>Gastos administrativos: {gastosAdministrativos}%</Text>
-            <Text>Total ingresos mensuales: USD {ingresosTotales}</Text>
-          </View> */}
-           
           <View>
             {ingresosTotales < cuota ? (
               <View style={styles.insufficientFunds}>
                 <Text>Ingresos insuficientes. Diferencia: {cuota - ingresosTotales}</Text>
               </View>
             ) : (
-              <ScrollView style={styles.tabla} horizontal>
+              <ScrollView style={styles.tabla} >
+              <ScrollView style={styles.innerTabla} horizontal >
                 <View>
                   <View style={styles.row}>
                     
@@ -397,6 +285,7 @@ const Form = () => {
                     </View>
                   ))}
                 </View>
+              </ScrollView>
               </ScrollView>
             )}
           </View>
