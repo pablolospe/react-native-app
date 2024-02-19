@@ -27,11 +27,9 @@ export const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 20,
-    // fontWeight:'bold',
     color:'white',
     backgroundColor: 'navy',
     textAlign: 'center',
-    // width:350,
     marginHorizontal:4,
     marginTop:32,
     padding:6,
@@ -45,7 +43,6 @@ export const styles = StyleSheet.create({
   },
   calendar: {
     backgroundColor:'#ffffff99',
-    // margin:'auto',
     borderWidth: 2,
     borderRadius: 4,
     marginTop:8,
@@ -65,7 +62,7 @@ export const styles = StyleSheet.create({
   buttonRight: {
     position: 'absolute',
     right: 0,
-    bottom: 1,
+    bottom: 8,
     width:'49.5%',
     paddingHorizontal:20, 
     paddingVertical:10, 
@@ -77,7 +74,7 @@ export const styles = StyleSheet.create({
   buttonLeft: {
     position: 'absolute',
     left: 0,
-    bottom: 1,
+    bottom: 8,
     width:'49.5%',
     paddingHorizontal:20, 
     paddingVertical:10, 
@@ -128,7 +125,6 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   topCell: {
-    // margin: 10,
     fontWeight:'bold',
     width:60,
     fontSize: 10,
