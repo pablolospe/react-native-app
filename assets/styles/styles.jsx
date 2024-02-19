@@ -35,6 +35,12 @@ export const styles = StyleSheet.create({
     padding:6,
     borderRadius: 4,
   },
+  bigText: {
+    color: 'navy', 
+    textAlign:'center', 
+    margin: 8, 
+    fontSize: 24
+  },
   label: {
     fontSize:18,
     color:'navy',

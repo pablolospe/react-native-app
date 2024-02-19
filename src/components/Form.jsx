@@ -126,7 +126,7 @@ const Form = () => {
         contentContainerStyle={styles.inputContainer}
         >
           <Text style={styles.title}>2# Ingresos mensuales</Text>
-          <Text style={{color: 'blue', textAlign:'center', margin: 8, fontSize: 24}} >Ingresos totales: {ingresosTotales}</Text>
+          <Text style={styles.bigText} >Ingresos totales: {ingresosTotales} U$D</Text>
           <ScrollView
            
           >
