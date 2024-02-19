@@ -126,7 +126,7 @@ const Form = () => {
         contentContainerStyle={styles.inputContainer}
         >
           <Text style={styles.title}>2# Ingresos mensuales</Text>
-          <Text style={{color: 'blue', textAlign:'center', margin: 8}} >Ingresos totales: {ingresosTotales}</Text>
+          <Text style={{color: 'blue', textAlign:'center', margin: 8, fontSize: 24}} >Ingresos totales: {ingresosTotales}</Text>
           <ScrollView
            
           >
@@ -137,7 +137,7 @@ const Form = () => {
             <TextInput 
                 style={styles.input}
                 value={String(ingresosNetosMensuales)} 
-                onChangeText={(e) => +e ? setIngresosNetosMensuales(e) : null} 
+                onChangeText={(e) => setIngresosNetosMensuales(e)} 
                 inputMode='numeric'
                 />
           
@@ -163,7 +163,7 @@ const Form = () => {
           <TextInput 
               style={styles.input} 
               value={String(ingresosNetosMensuales2)} 
-              onChangeText={(e) => +e ? setIngresosNetosMensuales2(e) : null} 
+              onChangeText={(e) => setIngresosNetosMensuales2(e)} 
               inputMode='numeric'
               />          
           
@@ -183,7 +183,7 @@ const Form = () => {
           <TextInput 
               style={styles.input} 
               value={String(ingresosNetosMensuales3)} 
-              onChangeText={(e) => +e ? setIngresosNetosMensuales3(e) : null} 
+              onChangeText={(e) => setIngresosNetosMensuales3(e)} 
               inputMode='numeric'
               />
           
