@@ -85,6 +85,7 @@ const Form = () => {
       {parteDelFormulario === 1 && (
         <View
         contentContainerStyle={styles.inputContainer}
+        style={styles.marginBottom}
         >
           <View>
           <Text style={styles.title}>1# Datos personales</Text>
@@ -109,7 +110,7 @@ const Form = () => {
                 }}
                 />
             </View>
-            <Text style={styles.subTitle}>Edad actual: {edad}</Text>
+            <Text style={styles.subTitle}>Edad actual: {edad} años</Text>
           
           </ScrollView>
         </View>
@@ -121,6 +122,7 @@ const Form = () => {
 
       {parteDelFormulario === 2 && (
         <View
+        style={styles.marginBottom}
         contentContainerStyle={styles.inputContainer}
         >
           <Text style={styles.title}>2# Ingresos mensuales</Text>
@@ -204,35 +206,76 @@ const Form = () => {
       {/* //////////// */}
 
       {parteDelFormulario === 3 && (
-        <View>
+        <View
+          style={styles.marginBottom}
+        >
           <Text style={styles.title}>3# Datos del préstamo</Text>
           <ScrollView
 
           >
           <Text style={styles.label}>Valor total de la unidad</Text>
-          <TextInput style={styles.input} value={String(valorUnidad)} onChangeText={(e)=> +e ? setValorUnidad(e) : null} />
+          <TextInput 
+            style={styles.input} 
+            value={String(valorUnidad)} 
+            onChangeText={(e) => setValorUnidad(e)} 
+            inputMode='numeric'
+            />
           
           <Text style={styles.label}>Valor total del préstamo</Text>
-          <TextInput style={styles.input} value={String(valorPrestamo)} onChangeText={(e) => +e ? setValorPrestamo(e) : null} inputMode='numeric' />
-          
-          <Text style={styles.label}>Plazo del financiamiento (en meses)</Text>
-          <TextInput style={styles.input} value={String(plazoFinanciamiento)} onChangeText={(e) => +e ? setPlazoFinanciamiento(e) : null} />
-          
-          <Text style={styles.label}>Tasa anual</Text>
-          <TextInput style={styles.input} value={String(tasaAnual)} onChangeText={(e) => +e ? setTasaAnual(e) : null} />
-          <Text style={styles.label}>Saldo del precio</Text>
-          <TextInput style={styles.input} value={String(saldoDelPrecio)} onChangeText={(e) => +e ? setSaldoDelPrecio(e) : null} />
-          <Text style={styles.label}>Seguro de desempleo</Text>
-          <TextInput style={styles.input} value={String(seguroDesempleo)} onChangeText={(e) => +e ? setSeguroDesempleo(e) : null} />
-          <Text style={styles.label}>Gastos administrativos</Text>
-          <TextInput style={styles.input} value={String(gastosAdministrativos)} onChangeText={(e) => +e ? setGastosAdministrativos(e) : null} />
-        
+          <TextInput
+            style={styles.input}
+            value={String(valorPrestamo)}
+            onChangeText={(e) => setValorPrestamo(e)} 
+            inputMode='numeric' 
+            />
+
           <Pressable
             onPress={handleCalcularPrestamoMaximo}
             style={styles.buttonCalcular}
           >
             <Text style={styles.buttonText}>Calcular préstamo máximo</Text>
           </Pressable>
+          
+          <Text style={styles.label}>Plazo del financiamiento (en meses)</Text>
+          <TextInput
+            style={styles.input}
+            value={String(plazoFinanciamiento)}
+            onChangeText={(e) => setPlazoFinanciamiento(e)} 
+            inputMode='numeric'
+            />
+          
+          <Text style={styles.label}>Tasa anual</Text>
+          <TextInput 
+            style={styles.input} 
+            value={String(tasaAnual)} 
+            onChangeText={(e) => setTasaAnual(e)} 
+            inputMode='numeric'
+            />
+          
+          <Text style={styles.label}>Saldo del precio</Text>
+          <TextInput 
+            style={styles.input} 
+            value={String(saldoDelPrecio)} 
+            onChangeText={(e) => setSaldoDelPrecio(e)} 
+            inputMode='numeric'
+            />
+          
+          <Text style={styles.label}>Seguro de desempleo</Text>
+          <TextInput 
+            style={styles.input} 
+            value={String(seguroDesempleo)} 
+            onChangeText={(e) => setSeguroDesempleo(e)} 
+            inputMode='numeric'
+            />
+          
+          <Text style={styles.label}>Gastos administrativos</Text>
+          <TextInput 
+            style={styles.input} 
+            value={String(gastosAdministrativos)} 
+            onChangeText={(e) => setGastosAdministrativos(e)} 
+            inputMode='numeric'
+            />
+
 
           </ScrollView>
         </View>

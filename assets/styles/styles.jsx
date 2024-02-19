@@ -11,6 +11,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  marginBottom: {
+    marginBottom:80,
+  },
   title: {
     fontSize: 20,
     fontWeight:'bold',
@@ -50,7 +53,8 @@ export const styles = StyleSheet.create({
     alignItems:'center',
     alignSelf:'center',
     width:'90%',
-    // padding:10,
+    padding:10,
+    borderWidth: 1,
   },
   buttonText: {
     letterSpacing:2,
@@ -82,14 +86,17 @@ export const styles = StyleSheet.create({
     elevation:5,
   },
   buttonCalcular: {
+    // position: 'absolute',
+    // top: 0,
     paddingHorizontal:20, 
     paddingVertical:10, 
     backgroundColor:'navy', 
     borderRadius:10, 
     elevation:5,
     alignSelf:'center',
-    marginTop: 40,
-    // width:150,
+    marginTop: 20,
+    marginBottom: 20,
+    width:360,
   },
   input: {
     fontSize:20,
