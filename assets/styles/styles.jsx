@@ -107,7 +107,15 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
     margin: 4,
     padding: 8,
-    backgroundColor:'white'
+    backgroundColor:'white',
+  },
+  picker: {
+    fontSize:24,
+    borderWidth: 2,
+    borderRadius: 4,
+    margin: 4,
+    // height:52,
+    backgroundColor:'white',
   },
   insufficientFunds: {
     margin: 15,

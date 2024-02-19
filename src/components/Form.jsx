@@ -5,7 +5,7 @@ import {calcularTablaAmortizacion} from '../../utils/calcularTablaAmortizacion'
 import {calcularPrestamoMaximo} from '../../utils/calcularPrestamoMaximo'
 import {calcularEdad} from '../../utils/calcularEdad'
 import {Picker} from '@react-native-picker/picker';
-import { Pressable, Image, SafeAreaView, ScrollView, Text, TextInput, View } from 'react-native';
+import { Pressable, SafeAreaView, ScrollView, Text, TextInput, View } from 'react-native';
 import {styles} from '../../assets/styles/styles'
 
 const Form = () => {
@@ -141,20 +141,21 @@ const Form = () => {
                 inputMode='numeric'
                 />
           
+          <Text style={styles.label}>Vehículos que posee (resta 150 U$D c/u) </Text>
+          <View style={styles.picker}>
+            <Picker 
+              // style={styles.input}
+              selectedValue={vehiculoPropio}
+              onValueChange={(itemValue) =>
+                setVehiculoPropio((itemValue))
+              }>
+              <Picker.Item label="no posee" value="0" />
+              <Picker.Item label="1 vehículo" value="1" />
+              <Picker.Item label="2 vehículos" value="2" />
+              <Picker.Item label="3 vehículos" value="3" />
+            </Picker>
+          </View>
 
-          {/* <Text style={styles.label}>Vehículos que posee (-150 USD cada uno)</Text> */}
-            {/* <Picker 
-            // style={styles.input} 
-            selectedValue='number'
-            value={vehiculoPropio}
-            onValueChange={(e) =>
-              setVehiculoPropio(Number(e)) 
-            }>
-            <Picker.Item label="" value="0" />
-              <Picker.Item label="1" value="1" />
-              <Picker.Item label="2" value="2" />
-              <Picker.Item label="3" value="3" />
-            </Picker> */}
           
           {/* <TextInput style={styles.input} value={esSocioDeUnClub} onChangeText={setEsSocioDeUnClub} /> */}
           
@@ -165,17 +166,23 @@ const Form = () => {
               value={String(ingresosNetosMensuales2)} 
               onChangeText={(e) => setIngresosNetosMensuales2(e)} 
               inputMode='numeric'
-              />          
+              />
           
-          {/* <Picker style={styles.input} 
-            onValueChange={(itemValue) =>
-              setVehiculoPropio2(Number(itemValue))
-            }>
-            <Picker.Item label="0" value="0" />
-            <Picker.Item label="1" value="1" />
-            <Picker.Item label="2" value="2" />
-            <Picker.Item label="3" value="3" />
-          </Picker> */}
+          <Text style={styles.label}>Vehículos que posee (resta 150 U$D c/u) </Text>
+          <View style={styles.picker}>
+            <Picker 
+              // style={styles.input}
+              selectedValue={vehiculoPropio2}
+              onValueChange={(itemValue) =>
+                setVehiculoPropio2((itemValue))
+              }>
+              <Picker.Item label="no posee" value="0" />
+              <Picker.Item label="1 vehículo" value="1" />
+              <Picker.Item label="2 vehículos" value="2" />
+              <Picker.Item label="3 vehículos" value="3" />
+            </Picker>
+          </View>
+
           {/* <TextInput style={styles.input} value={esSocioDeUnClub2} onChangeText={setEsSocioDeUnClub2} /> */}
           
           <Text style={styles.subTitle}>Propietario 3</Text>
@@ -187,16 +194,23 @@ const Form = () => {
               inputMode='numeric'
               />
           
-          {/* <Picker style={styles.input} 
-            onValueChange={(itemValue) =>
-              setVehiculoPropio3(Number(itemValue))
-            }>
-            <Picker.Item label="0" value="0" />
-            <Picker.Item label="1" value="1" />
-            <Picker.Item label="2" value="2" />
-            <Picker.Item label="3" value="3" />
-          </Picker> */}
+          <Text style={styles.label}>Vehículos que posee (resta 150 U$D c/u) </Text>
+          <View style={styles.picker}>
+            <Picker 
+              // style={styles.input}
+              selectedValue={vehiculoPropio3}
+              onValueChange={(itemValue) =>
+                setVehiculoPropio3((itemValue))
+              }>
+              <Picker.Item label="no posee" value="0" />
+              <Picker.Item label="1 vehículo" value="1" />
+              <Picker.Item label="2 vehículos" value="2" />
+              <Picker.Item label="3 vehículos" value="3" />
+            </Picker>
+          </View>
+
           {/* <TextInput style={styles.input} value={esSocioDeUnClub3} onChangeText={setEsSocioDeUnClub3} /> */}
+          
           </ScrollView>
         </View>
       )}
